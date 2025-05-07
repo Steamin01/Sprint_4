@@ -8,7 +8,7 @@ public class MainPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    public static String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
+    public static final String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
 
     // Локаторы
     private final By cookieBanner = By.className("App_CookieButton__3cvqF");
