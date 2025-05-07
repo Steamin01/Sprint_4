@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static page.MainPage.BASE_URL;
+
 import java.util.Arrays;
 import java.util.Collection;
 import org.openqa.selenium.WebDriver;
@@ -51,7 +53,7 @@ public class OrderTest {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.BASE_URL);
         mainPage = new MainPage(driver);
         orderPage = new OrderPage(driver);
         mainPage.acceptCookies();
@@ -67,7 +69,12 @@ public class OrderTest {
 
         orderPage.fillOrderForm(name, surname, address, metro, phone, date, comment);
         orderPage.submitOrder();
-        assertTrue("Заказ должен быть подтвержден", orderPage.isOrderConfirmed());
+
+        String actualConfirmationText = orderPage.getOrderConfirmationText();
+
+        System.out.println("Actual confirmation text: " + actualConfirmationText);
+
+        assertEquals("Заказ должен быть оформлен", "Заказ оформлен", actualConfirmationText);
     }
 
     @After
